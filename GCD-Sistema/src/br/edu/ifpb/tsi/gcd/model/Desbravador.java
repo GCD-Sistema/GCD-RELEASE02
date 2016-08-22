@@ -1,14 +1,18 @@
 package br.edu.ifpb.tsi.gcd.model;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -42,6 +46,9 @@ public class Desbravador{
 //	private List<Classe> classes;
 	//especialidades
 	
+	@OneToMany(mappedBy="desbravador", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<Requisito> requisitos;
+	
 	public Desbravador(){}
 
 	public Desbravador(String nome, Boolean sexo, String email, String telefone, String cargo, String login, String senha) {
@@ -51,6 +58,7 @@ public class Desbravador{
 		this.email = email;
 		this.telefone = telefone;
 		this.cargo = cargo.toUpperCase();
+		this.requisitos = new ArrayList<Requisito>();
 		
 		if(!this.cargo.equals("DIRETOR")){
 			this.login = null;
@@ -59,6 +67,7 @@ public class Desbravador{
 			this.login = login;
 			this.senha = senha;
 		}
+		
 	}
 	
 	public Desbravador(String nome, Boolean sexo, String nomePai, String nomeMae, String cargo) {
@@ -68,11 +77,43 @@ public class Desbravador{
 		this.nomePai = nomePai;
 		this.nomeMae = nomeMae;
 		this.cargo = cargo.toUpperCase();
+		this.requisitos = new ArrayList<Requisito>();
 		
 		if(!this.cargo.equals("DIRETOR")){
 			this.login = null;
 			this.senha = null;
 		}
+	}
+	
+	public void addRequisito(Requisito r){
+		r.setDesbravador(this);
+		this.requisitos.add(r);
+	}
+	
+	public void updateRequisito(Requisito r){
+		r.setDesbravador(this);
+		for (Requisito requisito : this.requisitos) {
+			if(requisito.getId() == r.getId())
+				this.requisitos.set(this.requisitos.indexOf(requisito), r);
+		}
+	}
+	
+	public List<Requisito> listaRequisitoPendentes(){
+		List<Requisito> pendentes = new ArrayList<Requisito>();
+		for (Requisito r : this.requisitos) {
+			if(!r.isStatus())
+				pendentes.add(r);
+		}
+		return pendentes;
+	}
+	
+	public List<Requisito> listaRequisitoCumprido(){
+		List<Requisito> cumpridos = new ArrayList<Requisito>();
+		for (Requisito r : this.requisitos) {
+			if(r.isStatus())
+				cumpridos.add(r);
+		}
+		return cumpridos;
 	}
 	
 	public int verIdade(){
@@ -213,8 +254,12 @@ public class Desbravador{
 		this.classeAtual = classeAtual;
 	}
 
-	
-	
+	public List<Requisito> getRequisitos() {
+		return requisitos;
+	}
 
+	public void setRequisitos(List<Requisito> requisitos) {
+		this.requisitos = requisitos;
+	}
 	
 }

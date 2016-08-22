@@ -11,6 +11,7 @@
       <class>br.edu.ifpb.tsi.gdc.model.Event</class>
       <class>br.edu.ifpb.tsi.gdc.model.Unidade</class>
       <class>br.edu.ifpb.tsi.gdc.model.Classe</class>
+      <class>br.edu.ifpb.tsi.gdc.model.Requisito</class>
       
       <properties>
       	<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>

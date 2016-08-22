@@ -1,6 +1,9 @@
 package br.edu.ifpb.tsi.gcd.dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -49,6 +52,17 @@ public class DesbravadorDAO extends GenericDAOJPAImpl<Desbravador, Long>{
 			Query q = this.getEntityManager().createQuery("from Desbravador d where d.clubeAtual='"+c.getId()+"'");
 			desbravadores = (List<Desbravador>) q.getResultList();
 		}catch (NoResultException nre){
+			return null;
+		}
+		return desbravadores;
+	}
+	
+	public List<Desbravador> findFaixaEtaria() throws DAOException{
+		List<Desbravador> desbravadores = new ArrayList<Desbravador>();
+		try {
+			Query q = this.getEntityManager().createQuery("from Desbravador d where d.dataNascimento < '1998-12-31'");
+			desbravadores = (List<Desbravador>) q.getResultList();
+		}catch (NoResultException e){
 			return null;
 		}
 		return desbravadores;

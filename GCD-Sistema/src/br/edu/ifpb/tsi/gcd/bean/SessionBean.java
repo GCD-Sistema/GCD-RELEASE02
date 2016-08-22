@@ -20,10 +20,12 @@ import br.edu.ifpb.tsi.gcd.dao.ClasseDAO;
 import br.edu.ifpb.tsi.gcd.dao.ClubeDAO;
 import br.edu.ifpb.tsi.gcd.dao.DesbravadorDAO;
 import br.edu.ifpb.tsi.gcd.dao.PersistenceUtil;
+import br.edu.ifpb.tsi.gcd.dao.RequisitoDAO;
 import br.edu.ifpb.tsi.gcd.model.Classe;
 import br.edu.ifpb.tsi.gcd.model.Clube;
 import br.edu.ifpb.tsi.gcd.model.Desbravador;
 import br.edu.ifpb.tsi.gcd.model.Distrital;
+import br.edu.ifpb.tsi.gcd.model.Requisito;
 import br.edu.ifpb.tsi.gcd.model.Unidade;
 
 
@@ -31,10 +33,13 @@ import br.edu.ifpb.tsi.gcd.model.Unidade;
 @SessionScoped
 public class SessionBean {
 
+	private RequisitoDAO requisitoDAO;
+	
 	public Desbravador usuarioLogado;
 	public Clube clube;
 	public List<Desbravador> desbravadores;
 	private List<Desbravador> membrosAgrupadas;
+	private List<Desbravador> membrosClasseEspecial;
 	
 	public Clube clubeEditado;
 	public Desbravador membroEditado;
@@ -50,6 +55,22 @@ public class SessionBean {
 	@PostConstruct
 	public void init(){
 		this.desbravadores = new ArrayList<Desbravador>();
+		this.membrosClasseEspecial = new ArrayList<Desbravador>();
+		this.requisitoDAO = new RequisitoDAO();
+	}
+	
+	public void listarDesbravadorFaixaEtaria(){
+		List<Desbravador> lista = new DesbravadorDAO().findFaixaEtaria();
+		if(lista != null){
+			this.membrosClasseEspecial = lista;
+		}
+	}
+	
+	public void requisitoCumprido(Requisito requisito){
+		requisito.setStatus(true);
+		this.requisitoDAO.beginTransaction();
+		this.requisitoDAO.update(requisito);
+		this.requisitoDAO.commit();
 	}
 	
 //	Metodos de SessionBean
@@ -256,6 +277,14 @@ public class SessionBean {
 
 	public void setMembrosAgrupadas(List<Desbravador> membrosAgrupadas) {
 		this.membrosAgrupadas = membrosAgrupadas;
+	}
+
+	public List<Desbravador> getMembrosClasseEspecial() {
+		return membrosClasseEspecial;
+	}
+
+	public void setMembrosClasseEspecial(List<Desbravador> membrosClasseEspecial) {
+		this.membrosClasseEspecial = membrosClasseEspecial;
 	}
 	
 }
