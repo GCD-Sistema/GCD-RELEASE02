@@ -164,27 +164,27 @@
 			                            		
 			                            		
 			                            		<h:column>
-													<f:facet name="header">Requisitos cumpridos</f:facet>
+													<f:facet name="header">Requisitos Cumpridos</f:facet>
 													
-													<h:panelGroup rendered="#{not empty sessionBean.membrosClasseEspecial}">
+													<h:panelGroup>
 													<div class="individual-user info-expand">
 														<div class="user-intro">
 															<span class="user-details-toggle detalhes-classe">
-																<i class="zmdi zmdi-plus">VER</i>
+																<i class="zmdi zmdi-plus">VER #{not empty desbravador.listaRequisitoCumprido() ? desbravador.listaRequisitoCumprido().size() : ''}</i>
 															</span>
 														</div>
 														<div class="users-details" style="display: none;">
 															<h:form>
-															<h:dataTable var="desbravador" value="#{sessionBean.membrosClasseEspecial}" styleClass="table table-striped data-tbl dataTable no-footer dtr-inline tb-membros-classe">
+															<h:dataTable var="requisito" value="#{desbravador.listaRequisitoCumprido()}" styleClass="table table-striped data-tbl dataTable no-footer dtr-inline tb-membros-classe">
 																<h:column>
-			                            							<h:commandLink action="#{desbravadorBean.irGerenciarClasse(desbravador.id, classe.id)}">#{desbravador.nome}</h:commandLink> 
+			                            							<h:outputText styleClass="fa fa-check" value="#{requisito.descricao}"/>
 			                            						</h:column>
 			                            					</h:dataTable>
 			                            					</h:form>
 			                            				</div>
 													</div>
 													</h:panelGroup>
-													<h:panelGroup rendered="#{empty sessionBean.membrosClasseEspecial}">
+													<h:panelGroup rendered="#{empty desbravador.listaRequisitoCumprido()}">
 														<div class="users-info informe-classe">
 															Não Possui Requisitos
 														</div>
@@ -196,7 +196,7 @@
 										</h:panelGroup>
 									
 										<h:panelGroup rendered="#{empty sessionBean.membrosClasseEspecial}">
-											<p>Não existem aniversariantes no momento!</p>
+											<p>Não existem desbravadores acima de 15 anos!</p>
 										</h:panelGroup>
 									</div>
 								</div>

@@ -61,27 +61,43 @@ public class TesteBean {
 				Clube clube = new Clube("Clube Teste1", "Distrito Teste1", diretor);
 				Clube clube2 = new Clube("Clube Teste2", "Distrito Teste1", diretor2);
 
-				
-				Requisito r1 = new Requisito("Vender biscoitos");
-				Requisito r2 = new Requisito("Trabalho voluntário");
-				Requisito r3 = new Requisito("Capturar pokemon");
-				
 				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 				Date data1 = format.parse("01/07/1993");
 				Date data2 = format.parse("20/12/1999");
 				Date data3 = format.parse("15/08/1992");
 				Date data4 = format.parse("05/07/1990");
+				
 				Desbravador d1 = new Desbravador("Desbravador 01", true, "Pai D01", "Mae D01", "DESBRAVADOR");
 				d1.setDataNascimento(data1);
-				d1.addRequisito(r1);
+				d1.addRequisito(new Requisito("Vender biscoitos"));
+				d1.addRequisito(new Requisito("Trabalho voluntário"));
+				d1.addRequisito(new Requisito("Capturar pokemon"));
+				d1.addRequisito(new Requisito("Correr 10km"));
+				d1.addRequisito(new Requisito("Criar um site para o clube"));
+				
 				Desbravador d2 = new Desbravador("Desbravador 02", false, "Pai D02", "Mae D02", "CONSELHEIRO");
 				d2.setDataNascimento(data2);
-				d2.addRequisito(r2);
+				d2.addRequisito(new Requisito("Vender biscoitos"));
+				d2.addRequisito(new Requisito("Trabalho voluntário"));
+				d2.addRequisito(new Requisito("Capturar pokemon"));
+				d2.addRequisito(new Requisito("Correr 10km"));
+				d2.addRequisito(new Requisito("Criar um site para o clube"));
+				
 				Desbravador d3 = new Desbravador("Desbravador 03", true, "Pai D03", "Mae D03", "DESBRAVADOR");
 				d3.setDataNascimento(data3);
+				d3.addRequisito(new Requisito("Vender biscoitos"));
+				d3.addRequisito(new Requisito("Trabalho voluntário"));
+				d3.addRequisito(new Requisito("Capturar pokemon"));
+				d3.addRequisito(new Requisito("Correr 10km"));
+				d3.addRequisito(new Requisito("Criar um site para o clube"));
+				
 				Desbravador d4 = new Desbravador("Desbravador 04", false, "Pai D04", "Mae D04", "DESBRAVADOR");
 				d4.setDataNascimento(data4);
-				d4.addRequisito(r3);
+				d4.addRequisito(new Requisito("Vender biscoitos"));
+				d4.addRequisito(new Requisito("Trabalho voluntário"));
+				d4.addRequisito(new Requisito("Capturar pokemon"));
+				d4.addRequisito(new Requisito("Correr 10km"));
+				d4.addRequisito(new Requisito("Criar um site para o clube"));
 
 				//GregorianCalendar nasc = new GregorianCalendar(1993, 2, 1);
 				//d4.setDataNascimento(nasc.getTime());
